@@ -45,6 +45,16 @@ app.MapGet("update", ([AsParameters] UpdateOrderDTO dto) =>
         order.Comments.Add(dto.Comment);
 });
 
+
+int complete_count() => repo.FindAll(x => x.Status == "выполнено").Count();
+
+Dictionary<string, int> get_problem_type_stat() =>
+    repo.GroupBy(x => x.ProblemType)
+    .Select(x => (x.Key, x.Count()))
+    .ToDictionary(k => k.Key, v => v.Item2);
+
+
+
 app.Run();
 
 
