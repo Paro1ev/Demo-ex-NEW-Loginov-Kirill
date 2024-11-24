@@ -1,3 +1,7 @@
+List<Order> repo = [
+    new Order(1,new(2005,03,03),"Тостер", "Сгорел", "Включил и загорелся","Логинов Кирилл", "В ожидании")
+    ];
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
