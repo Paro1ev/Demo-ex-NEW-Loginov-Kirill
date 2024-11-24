@@ -8,7 +8,16 @@ var app = builder.Build();
 
 app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-app.MapGet("/", () => "Hello World!");
+string message = "";
+
+app.MapGet("/orders", (int param = 0) =>
+{
+    string buffer = message;
+    message = "";
+    if (param != 0)
+        return new { repo = repo.FindAll(x => x.Number == param), message = buffer };
+    return new {repo = repo, message = buffer};
+});
 
 app.Run();
 
