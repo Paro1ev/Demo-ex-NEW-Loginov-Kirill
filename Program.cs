@@ -21,6 +21,30 @@ app.MapGet("/orders", (int param = 0) =>
 
 app.MapGet("create", ([AsParameters] Order dto) => repo.Add(dto));
 
+app.MapGet("update", ([AsParameters] UpdateOrderDTO dto) =>
+{
+    var order = repo.Find(x => x.Number == dto.Number);
+    if (order == null)
+        return;
+    if(dto.Status != order.Status && dto.Status != "")
+    {
+        order.Status = dto.Status;
+        message += $"статус заявки %{order.Number} изменён\n";
+        if (order.Status == "выполнено")
+        {
+            message += $"заявка %{order.Number} завершена\n";
+            order.EndDate = DateOnly.FromDateTime(DateTime.Now);
+
+        }
+        if (dto.Description != "")
+            order.Desciption = dto.Description;
+        if(dto.Master != "")
+            order.Master = dto.Master;
+        if(dto.Comment != "")
+            order.Comments.Add(dto.Comment); 
+    }
+});
+
 app.Run();
 
 
