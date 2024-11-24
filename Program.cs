@@ -3,7 +3,10 @@ List<Order> repo = [
     ];
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors();
 var app = builder.Build();
+
+app.UseCors(option => option.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.MapGet("/", () => "Hello World!");
 
