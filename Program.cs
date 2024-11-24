@@ -34,15 +34,15 @@ app.MapGet("update", ([AsParameters] UpdateOrderDTO dto) =>
         {
             message += $"заявка %{order.Number} завершена\n";
             order.EndDate = DateOnly.FromDateTime(DateTime.Now);
-
         }
-        if (dto.Description != "")
-            order.Desciption = dto.Description;
-        if(dto.Master != "")
-            order.Master = dto.Master;
-        if(dto.Comment != "")
-            order.Comments.Add(dto.Comment); 
     }
+
+    if (dto.Description != "")
+        order.Desciption = dto.Description;
+    if (dto.Master != "")
+        order.Master = dto.Master;
+    if (dto.Comment != "")
+        order.Comments.Add(dto.Comment);
 });
 
 app.Run();
